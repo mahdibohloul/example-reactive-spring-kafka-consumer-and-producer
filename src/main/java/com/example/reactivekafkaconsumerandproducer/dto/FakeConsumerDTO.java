@@ -1,6 +1,7 @@
 package com.example.reactivekafkaconsumerandproducer.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
@@ -9,7 +10,8 @@ public class FakeConsumerDTO {
     @JsonProperty("id")
     private String id;
 
-    public FakeConsumerDTO(String id) {
+    @JsonCreator
+    public FakeConsumerDTO(@JsonProperty("id") String id) {
         this.id = id;
     }
 
@@ -24,7 +26,7 @@ public class FakeConsumerDTO {
     @Override
     public String toString() {
         return "FakeConsumerDTO{" +
-                "id='" + id + '\'' +
-                '}';
+               "id='" + id + '\'' +
+               '}';
     }
 }

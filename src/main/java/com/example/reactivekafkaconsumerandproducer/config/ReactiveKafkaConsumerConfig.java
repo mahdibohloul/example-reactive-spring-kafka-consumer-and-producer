@@ -20,6 +20,6 @@ public class ReactiveKafkaConsumerConfig {
 
     @Bean
     public ReactiveKafkaConsumerTemplate<String, FakeConsumerDTO> reactiveKafkaConsumerTemplate(ReceiverOptions<String, FakeConsumerDTO> kafkaReceiverOptions) {
-        return new ReactiveKafkaConsumerTemplate<String, FakeConsumerDTO>(kafkaReceiverOptions);
+        return new ReactiveKafkaConsumerTemplate<>(kafkaReceiverOptions);
     }
 }

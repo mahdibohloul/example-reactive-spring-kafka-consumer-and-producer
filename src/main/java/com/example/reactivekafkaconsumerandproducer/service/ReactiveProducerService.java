@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.reactive.ReactiveKafkaProducerTemplate;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
+import reactor.kafka.sender.SenderResult;
 
 @Service
 public class ReactiveProducerService {
@@ -16,14 +18,15 @@ public class ReactiveProducerService {
     @Value(value = "${FAKE_PRODUCER_DTO_TOPIC}")
     private String topic;
 
-    public ReactiveProducerService(ReactiveKafkaProducerTemplate<String, FakeProducerDTO> reactiveKafkaProducerTemplate) {
+    public ReactiveProducerService(
+            ReactiveKafkaProducerTemplate<String, FakeProducerDTO> reactiveKafkaProducerTemplate) {
         this.reactiveKafkaProducerTemplate = reactiveKafkaProducerTemplate;
     }
 
-    public void send(FakeProducerDTO fakeProducerDTO) {
+    public Mono<Void> send(FakeProducerDTO fakeProducerDTO) {
         log.info("send to topic={}, {}={},", topic, FakeProducerDTO.class.getSimpleName(), fakeProducerDTO);
-        reactiveKafkaProducerTemplate.send(topic, fakeProducerDTO)
-                .doOnSuccess(senderResult -> log.info("sent {} offset : {}", fakeProducerDTO, senderResult.recordMetadata().offset()))
-                .subscribe();
+        return reactiveKafkaProducerTemplate.send(topic, fakeProducerDTO)
+                .doOnSuccess(senderResult -> log.info("sent {} offset : {}", fakeProducerDTO,
+                        senderResult.recordMetadata().offset())).then();
     }
 }

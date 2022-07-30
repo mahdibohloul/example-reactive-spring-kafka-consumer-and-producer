@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option java_package = "com.example.grpc.kafka.v1";
+option java_outer_classname = "KafkaProto";
+
+import "google/protobuf/empty.proto";
+
+package kafka.v1;
+
+service KafkaService {
+  rpc Produce (google.protobuf.Empty) returns (ProduceResponse) {}
+  rpc Consume (google.protobuf.Empty) returns (ConsumeResponse) {}
+}
+
+
+message ProduceResponse {
+  int32 error = 1;
+  int64 offset = 2;
+}
+
+message ConsumeResponse {
+  string message = 1;
+}
