@@ -5,15 +5,15 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName("FakeConsumer")
+//@JsonRootName("FakeConsumer")
 public class FakeConsumerDTO {
-    @JsonProperty("id")
+//    @JsonProperty("id")
     private String id;
 
-    @JsonCreator
-    public FakeConsumerDTO(@JsonProperty("id") String id) {
-        this.id = id;
-    }
+//    @JsonCreator
+//    public FakeConsumerDTO(@JsonProperty("id") String id) {
+//        this.id = id;
+//    }
 
     public String getId() {
         return id;

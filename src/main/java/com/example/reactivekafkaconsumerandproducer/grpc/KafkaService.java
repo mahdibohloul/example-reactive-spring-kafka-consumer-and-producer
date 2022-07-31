@@ -28,7 +28,8 @@ public class KafkaService extends KafkaServiceGrpc.KafkaServiceImplBase {
 
     @Override
     public void produce(Empty request, StreamObserver<KafkaProto.ProduceResponse> responseObserver) {
-        FakeProducerDTO fakeProducerDTO = new FakeProducerDTO("test");
+        FakeProducerDTO fakeProducerDTO = new FakeProducerDTO();
+        fakeProducerDTO.setId("test");
         logger.info("Producing message: {}", fakeProducerDTO);
         reactiveProducerService.send(fakeProducerDTO)
                 .subscribe(unused -> {
